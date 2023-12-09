@@ -2,10 +2,15 @@ package Controlador;
 
 import BD.ConnectionBD;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +36,14 @@ public class LoginController {
                 String contraseñaBD = resultado.getString("contraseña");
                 // Comparar la contraseña ingresada con la almacenada
                 if (passwor.equals(contraseñaBD)) {
-                    welcomeText.setText("¡Inicio de sesión exitoso!");
+                    //Obtenemos el nodo al que pertenece User, para despues cerrar la ventana
+                    user.getScene().getWindow().hide();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/poo/parkuyo/Inicio.fxml"));
+                    Stage stage= new Stage();
+                    Scene scene=new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+
                 } else {
                     welcomeText.setText("Contraseña incorrecta");
                 }
@@ -42,7 +54,8 @@ public class LoginController {
         } catch (
                 SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException("Chingo a su madre "+e);
         }
-
     }
 }
