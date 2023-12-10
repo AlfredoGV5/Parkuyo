@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -41,6 +42,7 @@ public class LoginController {
                     Parent root = FXMLLoader.load(getClass().getResource("/com/poo/parkuyo/Inicio.fxml"));
                     Stage stage= new Stage();
                     Scene scene=new Scene(root);
+                    stage.initStyle(StageStyle.TRANSPARENT);
                     stage.setScene(scene);
                     stage.show();
 
