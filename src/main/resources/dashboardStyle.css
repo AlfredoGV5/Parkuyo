@@ -79,7 +79,7 @@
 
 .table-view .column-header .filter{
     -fx-text-fill: #fff;
-    -fx-font-size: "Arial";
+    -fx-font-size: 12px;
 }
 
 
