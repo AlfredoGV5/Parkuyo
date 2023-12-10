@@ -5,16 +5,21 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" fx:controller="Controlador.Inicio" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
             <BorderPane prefHeight="600.3581918642928" prefWidth="1100.417879121186" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
@@ -23,7 +28,7 @@
                         <AnchorPane layoutX="162.0" layoutY="-77.0" prefHeight="36.53731239269563" prefWidth="1100.417879121186" styleClass="header-form" stylesheets="@../../../dashboardStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="53.0" layoutY="9.0" style="-fx-text-fill: white;" text="Parkuyo System" textFill="WHITE" />
-                              <Button layoutX="1027.0" layoutY="2.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="68.0" styleClass="close" stylesheets="/dashboardStyle.css">
+                              <Button layoutX="1027.0" layoutY="2.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="68.0" styleClass="close" stylesheets="/dashboardStyle.css">
                                  <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="25" />
                                  </graphic>
@@ -40,7 +45,7 @@
                         <AnchorPane layoutX="14.0" layoutY="117.0" prefHeight="555.223864790963" prefWidth="214.92536701585664" styleClass="nav-form" stylesheets="@../../../dashboardStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Line endX="100.0" layoutX="100.0" layoutY="88.0" startX="-100.0" stroke="WHITE" />
-                              <Button layoutX="10.0" layoutY="109.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Página Principal" textAlignment="RIGHT" textFill="WHITE">
+                              <Button fx:id="home_btn" layoutX="10.0" layoutY="109.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Página Principal" textAlignment="RIGHT" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -48,7 +53,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="25" />
                                  </graphic>
                               </Button>
-                              <Button layoutX="10.0" layoutY="152.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Empleados" textFill="WHITE">
+                              <Button fx:id="employee_btn" layoutX="10.0" layoutY="152.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Empleados" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -56,7 +61,7 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="STAR" size="25" />
                                  </graphic>
                               </Button>
-                              <Button layoutX="10.0" layoutY="199.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Dashboard" textFill="WHITE">
+                              <Button layoutX="10.0" layoutY="199.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Dashboard" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -78,11 +83,11 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane prefHeight="557.3731184611215" prefWidth="899.1044520163337" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="home_fomr" prefHeight="557.3731184611215" prefWidth="899.1044520163337" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="9.0" layoutY="9.0" prefHeight="547.0" prefWidth="880.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
+                              <AnchorPane fx:id="id_Dash" layoutX="9.0" layoutY="9.0" prefHeight="547.0" prefWidth="880.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                  <children>
-                                    <AnchorPane prefHeight="249.0" prefWidth="883.0" style="-fx-border-color: grey;" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
+                                    <AnchorPane prefHeight="249.0" prefWidth="883.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
                                           <AnchorPane layoutX="19.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
                                              <children>
@@ -92,7 +97,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="205.0" layoutY="27.0" style="-fx-text-fill: white;" text="0">
+                                                <Label fx:id="id_Dash_TotalEmploymeent" layoutX="205.0" layoutY="27.0" style="-fx-text-fill: white;" text="0">
                                                    <font>
                                                       <Font size="29.0" />
                                                    </font>
@@ -106,7 +111,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="207.0" layoutY="27.0" style="-fx-text-fill: white;" text="0">
+                                                <Label fx:id="id_Dash_VtasDiarias" layoutX="207.0" layoutY="27.0" style="-fx-text-fill: white;" text="0">
                                                    <font>
                                                       <Font size="29.0" />
                                                    </font>
@@ -120,7 +125,7 @@
                                                       <Font name="System Bold" size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <Label layoutX="206.0" layoutY="20.0" style="-fx-text-fill: white;" text="0">
+                                                <Label fx:id="id_Dash_CuyosR" layoutX="206.0" layoutY="20.0" style="-fx-text-fill: white;" text="0">
                                                    <font>
                                                       <Font size="29.0" />
                                                    </font>
@@ -128,7 +133,7 @@
                                              </children></AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <BarChart layoutX="100.0" layoutY="269.0" prefHeight="269.0" prefWidth="699.0" title="Ventas Totales">
+                                    <BarChart fx:id="id_Dash_Chart" layoutX="100.0" layoutY="269.0" prefHeight="269.0" prefWidth="699.0" title="Ventas Totales">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
@@ -136,6 +141,69 @@
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
                                     </BarChart>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="addEmployee_form" layoutX="14.0" layoutY="14.0" prefHeight="570.9850583721258" prefWidth="899.1044520163337" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane layoutX="12.0" layoutY="14.0" prefHeight="543.0" prefWidth="876.0">
+                                       <children>
+                                          <Label layoutX="24.0" layoutY="325.0" text="Nombre Empleado">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="25.0" layoutY="376.0" prefHeight="27.0" prefWidth="148.0" text="Télefono">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="25.0" layoutY="429.0" prefHeight="27.0" prefWidth="148.0" text="Género">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addEmployee_Nombre_Empleado" layoutX="204.0" layoutY="326.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addEmployee_Telefono" layoutX="204.0" layoutY="376.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <ChoiceBox fx:id="addEmployee_Genero" layoutX="204.0" layoutY="430.0" prefWidth="150.0" stylesheets="@../../../dashboardStyle.css" />
+                                          <DatePicker fx:id="addEmployee_FechaNac" layoutX="616.0" layoutY="325.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css" />
+                                          <Label layoutX="429.0" layoutY="325.0" text="Fecha Nacimiento">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="429.0" layoutY="375.0" prefHeight="27.0" prefWidth="148.0" text="Sueldo">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addEmployee_sueldo" layoutX="616.0" layoutY="376.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <Button fx:id="addEmployee_AddBtn" layoutX="429.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Agregar" />
+                                          <Button fx:id="addEmployee_DeleteBtn" layoutX="503.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Eliminar" />
+                                          <Button fx:id="addEmployee_UpdateBtn" layoutX="577.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="Editar" />
+                                          <Button fx:id="addEmployee_ClearBtn" layoutX="640.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: orange;" text="Limpiar" />
+                                          <Label layoutX="25.0" layoutY="473.0" prefHeight="27.0" prefWidth="148.0" text="Posición">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <ChoiceBox fx:id="addEmployee_Posicion" layoutX="204.0" layoutY="474.0" prefWidth="150.0" stylesheets="@../../../dashboardStyle.css" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="22.0" layoutY="24.0" prefHeight="250.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
+                                       <children>
+                                          <TableView fx:id="addEmployee_tableView" layoutX="8.0" layoutY="40.0" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
+                                            <columns>
+                                              <TableColumn fx:id="addEmployee_col_Id_Empleado" prefWidth="90.98510360717773" text="Id_Empleado" />
+                                              <TableColumn fx:id="addEmployee_col_Nombre" prefWidth="179.10450744628906" text="Nombre" />
+                                                <TableColumn fx:id="addEmployee_col_Sueldo" prefWidth="133.97006225585938" text="Sueldo" />
+                                                <TableColumn fx:id="addEmployee_col_Telefono" prefWidth="126.08956909179688" text="Télefono" />
+                                                <TableColumn fx:id="addEmployee_col_Fecha_Nacimiento" prefWidth="140.41793823242188" text="Fecha de Nacimiento" />
+                                                <TableColumn fx:id="addEmployee_col_Sexo" prefWidth="189.13427734375" text="Sexo" />
+                                            </columns>
+                                          </TableView>
+                                          <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="1.0" promptText="Buscar" styleClass="search" stylesheets="@../../../dashboardStyle.css" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
