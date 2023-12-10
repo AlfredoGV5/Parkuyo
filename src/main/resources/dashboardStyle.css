@@ -1,0 +1,106 @@
+.top-form{
+    -fx-background-color: #fff;
+    -fx-border-color: #000;
+    -fx-border-width: .4px .4px .2px .4px;
+}
+
+.semi-top-form{
+    -fx-background-color: #efefef;
+    -fx-border-color: #000;
+    -fx-border-width: .2px .4px .8px .4px;
+}
+
+.close{
+    -fx-cursor:hand;
+    -fx-background-color: #00b4fc ;
+}
+
+.close:hover{
+    -fx-background-color: #ff3547;
+}
+
+.minimize{
+    -fx-cursor:hand;
+}
+
+.minimize:hover{
+    -fx-background-color: rgba(252, 237, 1, 0.99);
+}
+
+
+.nav-form{
+    -fx-background-color: linear-gradient(to bottom right, #00b4fc, #17f9ff);
+}
+
+.header-form{
+    -fx-background-color: linear-gradient(to top left, #005bc5, #00b4fc);
+}
+
+
+.nav-btn{
+    -fx-background-color: #005bc5;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 10pt;
+    -fx-text-fill: #fff;
+}
+
+.data-bg{
+    -fx-background-color: rgba(255, 255, 255, 0.76);
+    -fx-background-radius: 18px;
+}
+
+.card{
+    -fx-background-color: linear-gradient(to top,#17f9ff,#005bc5);
+    -fx-background-radius: 15px;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right,#17f9ff,#005bc5);
+    -fx-border-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .table-column{
+    -fx-alignment: CENTER;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom right,#17f9ff,#005bc5) ;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0px 0px;
+}
+
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size:40px;
+}
+
+.table-view .column-header .filter{
+    -fx-text-fill: #fff;
+    -fx-font-size: "Arial";
+}
+
+
+.textfield{
+    -fx-background-color:white;
+    -fx-border-color: linear-gradient(to bottom right,#17f9ff,#005bc5) ;
+    -fx-border-width: 1px;
+    -fx-font-family: Tahoma;
+    -fx-border-radius: 10px;
+}
+
+.choice-box{
+    -fx-background-color: white;
+    -fx-border-color: linear-gradient(to bottom right,#17f9ff,#005bc5) ;
+}
+
+.search{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right,#17f9ff,#005bc5) ;
+    -fx-border-radius: 20px;
+    -fx-font-size: 13px;
+    -fx-font-family: Arial;
+    -fx-border-width: 1px;
+}
