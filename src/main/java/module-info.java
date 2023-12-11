@@ -8,4 +8,6 @@ module com.poo.parkuyo {
     exports com.poo.parkuyo;
     exports Controlador;
     opens Controlador to javafx.fxml;
+    opens Modelo to javafx.base;
+
 }
