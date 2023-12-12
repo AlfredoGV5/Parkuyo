@@ -1,5 +1,8 @@
 package Modelo;
 
+import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Empleado {
@@ -8,9 +11,9 @@ public class Empleado {
     private String direccion;
     private float sueldo;
     private String sexo;
-    private Date fecha_nacimiento;
+    private LocalDate fecha_nacimiento;
 
-    public Empleado(String nombre, String telefono, String direccion, float sueldo, String sexo, Date fecha_nacimiento) {
+    public Empleado(String nombre, String telefono, String direccion, float sueldo, String sexo, LocalDate fecha_nacimiento) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
@@ -40,7 +43,5 @@ public class Empleado {
         return sexo;
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
+    public LocalDate getFecha_nacimiento() {return fecha_nacimiento;}
 }
