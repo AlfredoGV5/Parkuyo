@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
@@ -77,6 +79,22 @@
                                  </font>
                               </Label>
                               <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="76.0" layoutY="48.0" size="40" wrappingWidth="24.04630756378174" />
+                              <Button fx:id="addCuyo_btn1" layoutX="10.0" layoutY="249.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Veterinarios" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="HEART" size="25" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="addCuyo_btn11" layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Alojamiento" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="HEART" size="25" />
+                                 </graphic>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
@@ -166,7 +184,6 @@
                                           </Label>
                                           <TextField fx:id="addEmployee_Nombre_Empleado" layoutX="204.0" layoutY="326.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextField fx:id="addEmployee_Telefono" layoutX="204.0" layoutY="376.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <ChoiceBox fx:id="addEmployee_Genero" layoutX="204.0" layoutY="430.0" prefWidth="150.0" stylesheets="@../../../dashboardStyle.css" />
                                           <DatePicker fx:id="addEmployee_FechaNac" layoutX="616.0" layoutY="325.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css" />
                                           <Label layoutX="429.0" layoutY="325.0" text="Fecha Nacimiento">
                                              <font>
@@ -179,21 +196,29 @@
                                              </font>
                                           </Label>
                                           <TextField fx:id="addEmployee_sueldo" layoutX="616.0" layoutY="376.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <Button fx:id="addEmployee_AddBtn" layoutX="429.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Agregar" />
-                                          <Button fx:id="addEmployee_DeleteBtn" layoutX="503.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Eliminar" />
-                                          <Button fx:id="addEmployee_UpdateBtn" layoutX="577.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: blue;" text="Editar" />
-                                          <Button fx:id="addEmployee_ClearBtn" layoutX="640.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: orange;" text="Limpiar" />
-                                          <Label layoutX="25.0" layoutY="473.0" prefHeight="27.0" prefWidth="148.0" text="Posición">
+                                          <Button fx:id="addEmployee_AddBtn" layoutX="294.0" layoutY="482.0" mnemonicParsing="false" onAction="#AddEmployeeADD" style="-fx-background-color: #19ee19;" text="Agregar" />
+                                          <Button fx:id="addEmployee_DeleteBtn" layoutX="368.0" layoutY="482.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
+                                          <Button fx:id="addEmployee_UpdateBtn" layoutX="442.0" layoutY="482.0" mnemonicParsing="false" style="-fx-background-color: #0077ff;" text="Editar" />
+                                          <Button fx:id="addEmployee_ClearBtn" layoutX="505.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEmployeeReset" style="-fx-background-color: #faaf2b;" text="Limpiar" />
+                                          <ComboBox fx:id="addEmployee_Genero" layoutX="207.0" layoutY="430.0" prefWidth="150.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css">
+                                             <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="Femenino" />
+                                                   <String fx:value="Masculino" />
+                                                </FXCollections>
+                                             </items>
+                                          </ComboBox>
+                                          <Label layoutX="429.0" layoutY="427.0" text="Dirección">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <ChoiceBox fx:id="addEmployee_Posicion" layoutX="204.0" layoutY="474.0" prefWidth="150.0" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addEmployee_Direccion_Empleado" layoutX="614.0" layoutY="429.0" prefHeight="29.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="22.0" layoutY="24.0" prefHeight="250.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
-                                          <TableView fx:id="addEmployee_tableView" layoutX="8.0" layoutY="40.0" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
+                                          <TableView fx:id="addEmployee_tableView" layoutX="8.0" layoutY="40.0" onMouseClicked="#addEmployeeSelect" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
                                             <columns>
                                               <TableColumn fx:id="addEmployee_col_Nombre" prefWidth="188.41787338256836" text="Nombre" />
                                                 <TableColumn fx:id="addEmployee_col_Sueldo" prefWidth="79.52241516113281" text="Sueldo" />

@@ -10,20 +10,16 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-public class Inicio implements Initializable{
+public class Inicio implements Initializable {
     @FXML
     private Button addEmployee_AddBtn;
 
@@ -37,13 +33,13 @@ public class Inicio implements Initializable{
     private DatePicker addEmployee_FechaNac;
 
     @FXML
-    private ChoiceBox<?> addEmployee_Genero;
+    private ComboBox<?> addEmployee_Genero;
 
     @FXML
     private TextField addEmployee_Nombre_Empleado;
 
     @FXML
-    private ChoiceBox<?> addEmployee_Posicion;
+    private ComboBox<String> addEmployee_Posicion;
 
     @FXML
     private TextField addEmployee_Telefono;
@@ -114,16 +110,19 @@ public class Inicio implements Initializable{
     @FXML
     private TableColumn<Empleado, String> addEmployee_col_Direccion;
 
+    @FXML
+    private TextField addEmployee_Direccion_Empleado;
+
 
     private Connection connect;
 
     //Metodo para cerrar
-    public void close(){
+    public void close() {
         System.exit(0);
     }
 
     /*METODO PARA CAMBIAR ENTRE LAS VENTANAS DEL PANEL*/
-    public void switchForm(ActionEvent event){
+    public void switchForm(ActionEvent event) {
         if (event.getSource() instanceof Button) {
             Button clickedButton = (Button) event.getSource();
             if (clickedButton == home_btn) {
@@ -134,7 +133,7 @@ public class Inicio implements Initializable{
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(true);
                 adCuyo_Form.setVisible(false);
-            }else if(clickedButton==addCuyo_btn){
+            } else if (clickedButton == addCuyo_btn) {
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(true);
@@ -143,29 +142,32 @@ public class Inicio implements Initializable{
     }
 
     /*Metodo para enumerar a los empleados*/
-    public ObservableList<Empleado> addEmpleadoListData(){
-        String sql="SELECT * FROM empleados";
-        ObservableList<Empleado> listData= FXCollections.observableArrayList();
-        connect= ConnectionBD.getConexion();
+    public ObservableList<Empleado> addEmpleadoListData() {
+        String sql = "SELECT * FROM empleados";
+        ObservableList<Empleado> listData = FXCollections.observableArrayList();
+        connect = ConnectionBD.getConexion();
 
-        try(PreparedStatement preparedStatement=connect.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql);) {
             ResultSet resultado = preparedStatement.executeQuery();
             Empleado empleadoD;
-            while(resultado.next()){
-                empleadoD=new Empleado(resultado.getString("Nombre"),
+            while (resultado.next()) {
+                empleadoD = new Empleado(resultado.getString("Nombre"),
                         resultado.getString("telefono"),
                         resultado.getString("direccion"),
                         resultado.getFloat("sueldo"),
                         resultado.getString("sexo"),
-                        resultado.getDate("fecha_nacimiento"));
+                        resultado.getDate("fecha_nacimiento").toLocalDate());
                 listData.add(empleadoD);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return listData;
     }
 
     private ObservableList<Empleado> addEmpleadoList;
-    public void addEmpleadoShowListData(){
+
+    public void addEmpleadoShowListData() {
         addEmpleadoList = addEmpleadoListData();
         addEmployee_col_Nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         addEmployee_col_Telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
@@ -177,7 +179,76 @@ public class Inicio implements Initializable{
         addEmployee_tableView.setItems(addEmpleadoList);
     }
 
-    public void addEmployeeSelect(){
+    /*Esto es para cuando seleccione una fila de la tabla, los datos los mande a los TextField*/
+    public void addEmployeeSelect() {
+        Empleado empleadoD = addEmployee_tableView.getSelectionModel().getSelectedItem();
+        int num = addEmployee_tableView.getSelectionModel().getSelectedIndex();
+
+        if ((num - 1) < -1) {
+            return;
+        }
+        addEmployee_Nombre_Empleado.setText(String.valueOf(empleadoD.getNombre()));
+        addEmployee_Telefono.setText(String.valueOf(empleadoD.getTelefono()));
+        addEmployee_sueldo.setText(String.valueOf(empleadoD.getSueldo()));
+        addEmployee_Direccion_Empleado.setText(String.valueOf(empleadoD.getDireccion()));
+        addEmployee_FechaNac.setValue(empleadoD.getFecha_nacimiento());
+    }
+
+    /*Metodo para agregar Empleado o Veterinario*/
+    public void AddEmployeeADD() throws SQLException {
+    connect = ConnectionBD.getConexion();
+        String callProcedureSQL = "{CALL InsertarEmpleado(?,?,?,?,?,?)}";
+        try {
+            connect.setAutoCommit(false);  // Deshabilitar la confirmación automática
+
+            PreparedStatement prepare = connect.prepareStatement(callProcedureSQL);
+            prepare.setString(1, addEmployee_Nombre_Empleado.getText());
+            prepare.setString(2, addEmployee_Telefono.getText());
+            prepare.setString(3, addEmployee_Direccion_Empleado.getText());
+            prepare.setDouble(4, Double.parseDouble(addEmployee_sueldo.getText()));
+            LocalDate fechaNacimiento = addEmployee_FechaNac.getValue();
+            java.sql.Date fechaNacimientoSQL = java.sql.Date.valueOf(fechaNacimiento);
+            prepare.setDate(5, fechaNacimientoSQL);
+            prepare.setString(6, (String) addEmployee_Genero.getSelectionModel().getSelectedItem());
+
+            int rowsAffected = prepare.executeUpdate();
+            if (rowsAffected > 0) {
+                connect.commit();  // Confirmar la transacción si hay filas afectadas
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información Operación");
+                alert.setHeaderText(null);
+                alert.setContentText("Agregado Correctamente");
+                alert.showAndWait();
+
+                addEmployeeReset();
+                addEmpleadoShowListData();
+            } else {
+                connect.rollback();  // Hacer rollback si no hay filas afectadas
+                System.out.println("No se pudo agregar el empleado.");
+            }
+        } catch(Exception e) {
+            connect.rollback();  // Hacer rollback en caso de error
+            System.out.println(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                connect.setAutoCommit(true);  // Restaurar la confirmación automática
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+    public void addEmployeeReset(){
+        addEmployee_Nombre_Empleado.setText("");
+        addEmployee_Telefono.setText("");
+        addEmployee_Direccion_Empleado.setText("");
+        addEmployee_sueldo.setText("");
+        addEmployee_FechaNac.setValue(null);
+        addEmployee_Genero.getSelectionModel().clearSelection();
 
     }
 
