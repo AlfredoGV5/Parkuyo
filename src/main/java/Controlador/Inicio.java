@@ -1,6 +1,9 @@
 package Controlador;
 
 import BD.ConnectionBD;
+import Modelo.Cuyo;
+import Modelo.CuyoConDueño;
+import Modelo.DueñoCuyo;
 import Modelo.Empleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -180,6 +183,33 @@ public class Inicio implements Initializable {
     @FXML
     private TableColumn<Empleado, Integer> addEmployee_col_Id;
 
+    @FXML
+    private Spinner<?> adCuyo_Form_EdadCuy;
+
+    @FXML
+    private TextArea adCuyo_Form_Especificaciones;
+
+    @FXML
+    private TextField adCuyo_Form_NombreCliente;
+
+    @FXML
+    private TextField adCuyo_Form_NombreCuy;
+
+    @FXML
+    private TableView<CuyoConDueño> adCuyo_Form_TableViewCuyo;
+
+    @FXML
+    private TableColumn<DueñoCuyo, String> adCuyo_Form_TableViewCuyo_CelCuy;
+
+    @FXML
+    private TableColumn<DueñoCuyo, String> adCuyo_Form_TableViewCuyo_ClienteCuy;
+
+    @FXML
+    private TableColumn<Cuyo, String> adCuyo_Form_TableViewCuyo_EspecificacionesCuy;
+
+    @FXML
+    private TableColumn<Cuyo, String> adCuyo_Form_TableViewCuyo_NombreCuy;
+
 
     private Connection connect;
 
@@ -221,6 +251,7 @@ public class Inicio implements Initializable {
         }
     }
 
+    /*-------------------------------------------METODOS DE EMPLEADOOOOOOOOOOOOOOOO-------------------------------------------*/
     /*Metodo para enumerar a los empleados*/
     public ObservableList<Empleado> addEmpleadoListData() {
         String sql = "SELECT * FROM empleados";
@@ -427,8 +458,54 @@ public class Inicio implements Initializable {
             }
         }
     }
+    /*-----------------------------------------------------------------------------------------------------*/
+
+    /*--------------------------------------------Metodos para el Cuyo------------------------------------------------*/
+
+    public ObservableList<CuyoConDueño> addCuyoConDueñoListData() {
+        String sql = "{CALL ObtenerCuyosYClientes()}";
+        ObservableList<CuyoConDueño> listData = FXCollections.observableArrayList();
+        connect = ConnectionBD.getConexion();
+
+        try (PreparedStatement preparedStatement = connect.prepareStatement(sql);) {
+            ResultSet resultado = preparedStatement.executeQuery();
+            while (resultado.next()) {
+                Cuyo cuyo = new Cuyo(
+                        resultado.getInt("id_cuyo"),
+                        resultado.getString("nombre"),
+                        resultado.getInt("edad"),
+                        resultado.getString("especificaciones")
+                );
+                DueñoCuyo dueñoCuyo = new DueñoCuyo(
+                        resultado.getString("nombre_cliente"),
+                        resultado.getString("celular_cliente"),
+                        resultado.getString("correo_cliente"),
+                        resultado.getString("direccion_cliente")
+                        );
+
+                listData.add(new CuyoConDueño(cuyo, dueñoCuyo));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listData;
+    }
+
+    public void addCuyoConDueñoShowListData() {
+        ObservableList<CuyoConDueño> list = addCuyoConDueñoListData();
+
+        adCuyo_Form_TableViewCuyo_CelCuy.setCellValueFactory(new PropertyValueFactory<>("celularCliente"));
+        adCuyo_Form_TableViewCuyo_ClienteCuy.setCellValueFactory(new PropertyValueFactory<>("nombreCliente"));
+        adCuyo_Form_TableViewCuyo_EspecificacionesCuy.setCellValueFactory(new PropertyValueFactory<>("especificacionesCuyo"));
+        adCuyo_Form_TableViewCuyo_NombreCuy.setCellValueFactory(new PropertyValueFactory<>("nombreCuyo"));
+
+        adCuyo_Form_TableViewCuyo.setItems(list);
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addEmpleadoShowListData();
+        addCuyoConDueñoShowListData();
     }
 }
