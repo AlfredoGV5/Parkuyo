@@ -301,7 +301,6 @@ public class Inicio implements Initializable {
         if ((num - 1) < -1) {
             return;
         }
-        addEmployee_Nombre_Empleado.setText(String.valueOf(empleadoD.getId()));
         addEmployee_Nombre_Empleado.setText(String.valueOf(empleadoD.getNombre()));
         addEmployee_Telefono.setText(String.valueOf(empleadoD.getTelefono()));
         addEmployee_sueldo.setText(String.valueOf(empleadoD.getSueldo()));
@@ -309,12 +308,9 @@ public class Inicio implements Initializable {
         addEmployee_FechaNac.setValue(empleadoD.getFecha_nacimiento());
         if(empleadoD.getSexo().equals("M")) addEmployee_Genero.setValue("Masculino");
         if(empleadoD.getSexo().equals("F")) addEmployee_Genero.setValue("Femenino");
-
-
-
+        id_empleado=empleadoD.getId();
         nombreActual = empleadoD.getNombre();
         fechaNacActual = empleadoD.getFecha_nacimiento();
-        id_empleado=empleadoD.getId();
     }
 
     /*Metodo para agregar Empleado o Veterinario*/
