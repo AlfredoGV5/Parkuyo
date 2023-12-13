@@ -20,6 +20,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 public class Inicio implements Initializable {
+    private String nombreActual;
+    private LocalDate fechaNacActual;
+    private int id_empleado;
+
     @FXML
     private Button addEmployee_AddBtn;
 
@@ -33,13 +37,10 @@ public class Inicio implements Initializable {
     private DatePicker addEmployee_FechaNac;
 
     @FXML
-    private ComboBox<?> addEmployee_Genero;
+    private ComboBox<String> addEmployee_Genero;
 
     @FXML
     private TextField addEmployee_Nombre_Empleado;
-
-    @FXML
-    private ComboBox<String> addEmployee_Posicion;
 
     @FXML
     private TextField addEmployee_Telefono;
@@ -58,16 +59,10 @@ public class Inicio implements Initializable {
 
     @FXML
     private TableColumn<Empleado, Float> addEmployee_col_Sueldo;
-
     @FXML
     private TableColumn<Empleado, String> addEmployee_col_Telefono;
-
     @FXML
     private AnchorPane addEmployee_form;
-
-    @FXML
-    private TextField addEmployee_search;
-
     @FXML
     private TextField addEmployee_sueldo;
 
@@ -113,6 +108,78 @@ public class Inicio implements Initializable {
     @FXML
     private TextField addEmployee_Direccion_Empleado;
 
+    @FXML
+    private Button addHotelBtn;
+
+    @FXML
+    private TextField addTelefono_Veterinario;
+
+    @FXML
+    private Button addVeterinarioBtn;
+
+    @FXML
+    private Button addVeterinario_AddBtn;
+
+    @FXML
+    private TextField addVeterinario_Cedula;
+
+    @FXML
+    private Button addVeterinario_ClearBtn;
+
+    @FXML
+    private Button addVeterinario_DeleteBtn;
+
+    @FXML
+    private TextField addVeterinario_Direccion;
+
+    @FXML
+    private DatePicker addVeterinario_FechaNac;
+
+    @FXML
+    private AnchorPane addVeterinario_Form;
+
+    @FXML
+    private ComboBox<?> addVeterinario_Genero;
+
+    @FXML
+    private TextField addVeterinario_Nombre;
+
+    @FXML
+    private Button addVeterinario_UpdateBtn;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Cedula;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Direccion;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_FechaN;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Nombre;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Sexo;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Sueldo;
+
+    @FXML
+    private TableColumn<?, ?> addVeterinario_col_Telefono;
+
+    @FXML
+    private TextField addVeterinario_search;
+
+    @FXML
+    private TextField addVeterinario_sueldo;
+
+    @FXML
+    private TableView<?> addVeterinario_tableView;
+
+    @FXML
+    private TableColumn<Empleado, Integer> addEmployee_col_Id;
+
 
     private Connection connect;
 
@@ -129,14 +196,27 @@ public class Inicio implements Initializable {
                 id_Dash.setVisible(true);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(false);
+                addVeterinario_Form.setVisible(false);
             } else if (clickedButton == employee_btn) {
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(true);
                 adCuyo_Form.setVisible(false);
+                addVeterinario_Form.setVisible(false);
             } else if (clickedButton == addCuyo_btn) {
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(true);
+                addVeterinario_Form.setVisible(false);
+            }else if(clickedButton==addVeterinarioBtn){
+                id_Dash.setVisible(false);
+                addEmployee_form.setVisible(false);
+                adCuyo_Form.setVisible(false);
+                addVeterinario_Form.setVisible(true);
+            }else if(clickedButton==addHotelBtn){
+                id_Dash.setVisible(false);
+                addEmployee_form.setVisible(false);
+                adCuyo_Form.setVisible(false);
+                addVeterinario_Form.setVisible(false);
             }
         }
     }
@@ -151,7 +231,9 @@ public class Inicio implements Initializable {
             ResultSet resultado = preparedStatement.executeQuery();
             Empleado empleadoD;
             while (resultado.next()) {
-                empleadoD = new Empleado(resultado.getString("Nombre"),
+                empleadoD = new Empleado(
+                        resultado.getInt("id_empleado"),
+                        resultado.getString("Nombre"),
                         resultado.getString("telefono"),
                         resultado.getString("direccion"),
                         resultado.getFloat("sueldo"),
@@ -169,6 +251,7 @@ public class Inicio implements Initializable {
 
     public void addEmpleadoShowListData() {
         addEmpleadoList = addEmpleadoListData();
+        addEmployee_col_Id.setCellValueFactory(new PropertyValueFactory<>("id"));
         addEmployee_col_Nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         addEmployee_col_Telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         addEmployee_col_Direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
@@ -187,11 +270,20 @@ public class Inicio implements Initializable {
         if ((num - 1) < -1) {
             return;
         }
+        addEmployee_Nombre_Empleado.setText(String.valueOf(empleadoD.getId()));
         addEmployee_Nombre_Empleado.setText(String.valueOf(empleadoD.getNombre()));
         addEmployee_Telefono.setText(String.valueOf(empleadoD.getTelefono()));
         addEmployee_sueldo.setText(String.valueOf(empleadoD.getSueldo()));
         addEmployee_Direccion_Empleado.setText(String.valueOf(empleadoD.getDireccion()));
         addEmployee_FechaNac.setValue(empleadoD.getFecha_nacimiento());
+        if(empleadoD.getSexo().equals("M")) addEmployee_Genero.setValue("Masculino");
+        if(empleadoD.getSexo().equals("F")) addEmployee_Genero.setValue("Femenino");
+
+
+
+        nombreActual = empleadoD.getNombre();
+        fechaNacActual = empleadoD.getFecha_nacimiento();
+        id_empleado=empleadoD.getId();
     }
 
     /*Metodo para agregar Empleado o Veterinario*/
@@ -239,9 +331,6 @@ public class Inicio implements Initializable {
             }
         }
     }
-
-
-
     public void addEmployeeReset(){
         addEmployee_Nombre_Empleado.setText("");
         addEmployee_Telefono.setText("");
@@ -251,10 +340,93 @@ public class Inicio implements Initializable {
         addEmployee_Genero.getSelectionModel().clearSelection();
 
     }
+    public void addEmployeeUpdate() throws SQLException {
+        String callProcedureSQLUpdate = "{CALL actualizarEmpleado(?,?,?,?,?,?,?,?)}";
+        connect = ConnectionBD.getConexion();
 
+        try {
+            connect.setAutoCommit(false);  // Deshabilitar la confirmación automática
 
+            // Utiliza los valores originales guardados
+            PreparedStatement prepare = connect.prepareStatement(callProcedureSQLUpdate);
+            prepare.setString(1, nombreActual);
+            prepare.setDate(2, java.sql.Date.valueOf(fechaNacActual));
+            prepare.setString(3, addEmployee_Nombre_Empleado.getText());
+            prepare.setString(4, addEmployee_Telefono.getText());
+            prepare.setString(5, addEmployee_Direccion_Empleado.getText());
+            prepare.setDouble(6, Double.parseDouble(addEmployee_sueldo.getText()));
+            prepare.setString(7, (String) addEmployee_Genero.getSelectionModel().getSelectedItem());
+            LocalDate fechaNacimiento = addEmployee_FechaNac.getValue();
+            java.sql.Date fechaNacimientoSQL = java.sql.Date.valueOf(fechaNacimiento);
+            prepare.setDate(8, fechaNacimientoSQL);
 
+            int rowsAffected = prepare.executeUpdate();
+            if (rowsAffected > 0) {
+                connect.commit();  // Confirmar la transacción si hay filas afectadas
 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información Operación");
+                alert.setHeaderText(null);
+                alert.setContentText("Actualizado Correctamente");
+                alert.showAndWait();
+
+                addEmployeeReset();
+                addEmpleadoShowListData();
+            } else {
+                connect.rollback();  // Hacer rollback si no hay filas afectadas
+                System.out.println("No se pudo agregar el empleado.");
+            }
+        } catch(Exception e) {
+            connect.rollback();  // Hacer rollback en caso de error
+            System.out.println(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                connect.setAutoCommit(true);  // Restaurar la confirmación automática
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addEmployeeDelete() throws SQLException {
+        String sqlBorrar= "{CALL borrarEmpleado(?)}";
+        connect = ConnectionBD.getConexion();
+        try{
+            connect.setAutoCommit(false);  // Deshabilitar la confirmación automática
+
+            // Utiliza los valores originales guardados
+            PreparedStatement prepare = connect.prepareStatement(sqlBorrar);
+            prepare.setInt(1,id_empleado);
+
+            int rowsAffected = prepare.executeUpdate();
+            if (rowsAffected > 0) {
+                connect.commit();  // Confirmar la transacción si hay filas afectadas
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información Operación");
+                alert.setHeaderText(null);
+                alert.setContentText("Borrado Correctamente");
+                alert.showAndWait();
+
+                addEmployeeReset();
+                addEmpleadoShowListData();
+            } else {
+                connect.rollback();  // Hacer rollback si no hay filas afectadas
+                System.out.println("No se pudo Borrar el empleado.");
+            }
+        } catch(Exception e) {
+            connect.rollback();  // Hacer rollback en caso de error
+            System.out.println(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                connect.setAutoCommit(true);  // Restaurar la confirmación automática
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addEmpleadoShowListData();

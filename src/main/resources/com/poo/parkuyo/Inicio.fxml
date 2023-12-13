@@ -79,7 +79,7 @@
                                  </font>
                               </Label>
                               <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="76.0" layoutY="48.0" size="40" wrappingWidth="24.04630756378174" />
-                              <Button fx:id="addCuyo_btn1" layoutX="10.0" layoutY="249.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Veterinarios" textFill="WHITE">
+                              <Button fx:id="addVeterinarioBtn" layoutX="10.0" layoutY="249.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Veterinarios" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -87,12 +87,12 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="HEART" size="25" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="addCuyo_btn11" layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Alojamiento" textFill="WHITE">
+                              <Button fx:id="addHotelBtn" layoutX="10.0" layoutY="296.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 500;" styleClass="nav-btn" stylesheets="@../../../dashboardStyle.css" text="Alojamiento" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="HEART" size="25" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="HOTEL" size="25" />
                                  </graphic>
                               </Button>
                            </children>
@@ -197,8 +197,8 @@
                                           </Label>
                                           <TextField fx:id="addEmployee_sueldo" layoutX="616.0" layoutY="376.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <Button fx:id="addEmployee_AddBtn" layoutX="294.0" layoutY="482.0" mnemonicParsing="false" onAction="#AddEmployeeADD" style="-fx-background-color: #19ee19;" text="Agregar" />
-                                          <Button fx:id="addEmployee_DeleteBtn" layoutX="368.0" layoutY="482.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
-                                          <Button fx:id="addEmployee_UpdateBtn" layoutX="442.0" layoutY="482.0" mnemonicParsing="false" style="-fx-background-color: #0077ff;" text="Editar" />
+                                          <Button fx:id="addEmployee_DeleteBtn" layoutX="368.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEmployeeDelete" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
+                                          <Button fx:id="addEmployee_UpdateBtn" layoutX="442.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEmployeeUpdate" style="-fx-background-color: #0077ff;" text="Editar" />
                                           <Button fx:id="addEmployee_ClearBtn" layoutX="505.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEmployeeReset" style="-fx-background-color: #faaf2b;" text="Limpiar" />
                                           <ComboBox fx:id="addEmployee_Genero" layoutX="207.0" layoutY="430.0" prefWidth="150.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css">
                                              <items>
@@ -220,15 +220,15 @@
                                        <children>
                                           <TableView fx:id="addEmployee_tableView" layoutX="8.0" layoutY="40.0" onMouseClicked="#addEmployeeSelect" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
                                             <columns>
-                                              <TableColumn fx:id="addEmployee_col_Nombre" prefWidth="188.41787338256836" text="Nombre" />
-                                                <TableColumn fx:id="addEmployee_col_Sueldo" prefWidth="79.52241516113281" text="Sueldo" />
+                                                <TableColumn fx:id="addEmployee_col_Id" prefWidth="32.95521545410156" text="Id" />
+                                              <TableColumn fx:id="addEmployee_col_Nombre" prefWidth="244.29850387573242" text="Nombre" />
+                                                <TableColumn fx:id="addEmployee_col_Sueldo" prefWidth="180.53724670410156" text="Sueldo" />
                                                 <TableColumn fx:id="addEmployee_col_Telefono" prefWidth="123.94033813476562" text="Télefono" />
                                                 <TableColumn fx:id="addEmployee_col_Fecha_Nacimiento" prefWidth="161.91046142578125" text="Fecha de Nacimiento" />
                                                 <TableColumn fx:id="addEmployee_col_Sexo" prefWidth="90.985107421875" text="Sexo" />
                                                 <TableColumn fx:id="addEmployee_col_Direccion" prefWidth="533.731201171875" text="Dirección" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="1.0" promptText="Buscar" styleClass="search" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -251,7 +251,7 @@
                                           <Label layoutX="10.0" layoutY="429.0" text="Direccion" />
                                           <TextField fx:id="adCuyo_Form_NombreCuy" layoutX="223.0" layoutY="80.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextArea fx:id="adCuyo_Form_Especificaciones" layoutX="220.0" layoutY="157.0" prefHeight="113.0" prefWidth="158.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <Spinner fx:id="adCuyo_Form_EdadCuy" layoutX="222.0" layoutY="114.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <Spinner fx:id="adCuyo_Form_EdadCuy" min="1" max="10" layoutX="222.0" layoutY="114.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <Line endX="287.81341552734375" layoutX="111.0" layoutY="296.0" startX="-100.0" />
                                           <TextField fx:id="adCuyo_Form_NombreCliente" layoutX="222.0" layoutY="306.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextField fx:id="adCuyo_Form_CelCliente" layoutX="223.0" layoutY="347.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
@@ -273,6 +273,83 @@
                                                 <TableColumn fx:id="adCuyo_Form_TableViewCuyo_CelCuy" prefWidth="125.37306439422485" text="Cel" />
                                             </columns>
                                           </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="addVeterinario_Form" layoutX="10.0" layoutY="10.0" prefHeight="570.9850583721258" prefWidth="899.1044520163337" visible="false">
+                                 <children>
+                                    <AnchorPane layoutX="12.0" layoutY="14.0" prefHeight="543.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
+                                       <children>
+                                          <Label layoutX="24.0" layoutY="325.0" text="Nombre Veterinario">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="25.0" layoutY="376.0" prefHeight="27.0" prefWidth="148.0" text="Télefono">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="25.0" layoutY="429.0" prefHeight="27.0" prefWidth="148.0" text="Género">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addVeterinario_Nombre" layoutX="204.0" layoutY="326.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addTelefono_Veterinario" layoutX="204.0" layoutY="376.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <DatePicker fx:id="addVeterinario_FechaNac" layoutX="617.0" layoutY="274.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css" />
+                                          <Label layoutX="430.0" layoutY="274.0" text="Fecha Nacimiento">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="430.0" layoutY="324.0" prefHeight="27.0" prefWidth="148.0" text="Sueldo">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addVeterinario_sueldo" layoutX="617.0" layoutY="325.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <Button fx:id="addVeterinario_AddBtn" layoutX="482.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #19ee19;" text="Agregar" />
+                                          <Button fx:id="addVeterinario_DeleteBtn" layoutX="556.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
+                                          <Button fx:id="addVeterinario_UpdateBtn" layoutX="630.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #0077ff;" text="Editar" />
+                                          <Button fx:id="addVeterinario_ClearBtn" layoutX="693.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #faaf2b;" text="Limpiar" />
+                                          <ComboBox fx:id="addVeterinario_Genero" layoutX="207.0" layoutY="430.0" prefWidth="150.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css">
+                                             <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="Femenino" />
+                                                   <String fx:value="Masculino" />
+                                                </FXCollections>
+                                             </items>
+                                          </ComboBox>
+                                          <Label layoutX="430.0" layoutY="376.0" text="Dirección">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addVeterinario_Direccion" layoutX="615.0" layoutY="378.0" prefHeight="29.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <Label layoutX="25.0" layoutY="275.0" text="Cédula">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="addVeterinario_Cedula" layoutX="205.0" layoutY="274.0" prefHeight="29.0" prefWidth="155.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="22.0" layoutY="24.0" prefHeight="250.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
+                                       <children>
+                                          <TableView fx:id="addVeterinario_tableView" layoutX="8.0" layoutY="40.0" onMouseClicked="#addEmployeeSelect" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
+                                             <columns>
+                                                <TableColumn fx:id="addVeterinario_col_Nombre" prefWidth="151.16413497924805" text="Nombre" />
+                                                <TableColumn fx:id="addVeterinario_col_Sueldo" prefWidth="117.49256896972656" text="Sueldo" />
+                                                <TableColumn fx:id="addVeterinario_col_Telefono" prefWidth="123.94033813476562" text="Télefono" />
+                                                <TableColumn fx:id="addVeterinario_col_FechaN" prefWidth="128.23876953125" text="Fecha de Nacimiento" />
+                                                <TableColumn fx:id="addVeterinario_col_Sexo" prefWidth="44.41790771484375" text="Sexo" />
+                                                <TableColumn fx:id="addVeterinario_col_Cedula" prefWidth="128.9552001953125" text="Cédula" />
+                                                <TableColumn fx:id="addVeterinario_col_Direccion" prefWidth="539.4625854492188" text="Dirección" />
+                                             </columns>
+                                          </TableView>
+                                          <TextField fx:id="addVeterinario_search" layoutX="14.0" layoutY="1.0" promptText="Buscar" styleClass="search" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                  </children>
