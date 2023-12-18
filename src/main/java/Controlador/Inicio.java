@@ -1,19 +1,13 @@
 package Controlador;
 
 import BD.ConnectionBD;
-import Modelo.Cuyo;
-import Modelo.CuyoConDueño;
-import Modelo.DueñoCuyo;
-import Modelo.Empleado;
+import Modelo.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -26,15 +20,6 @@ public class Inicio implements Initializable {
     private String nombreActual;
     private LocalDate fechaNacActual;
     private int id_empleado;
-
-    @FXML
-    private Button addEmployee_AddBtn;
-
-    @FXML
-    private Button addEmployee_ClearBtn;
-
-    @FXML
-    private Button addEmployee_DeleteBtn;
 
     @FXML
     private DatePicker addEmployee_FechaNac;
@@ -78,26 +63,15 @@ public class Inicio implements Initializable {
     @FXML
     private Button home_btn;
 
-    @FXML
-    private AnchorPane home_fomr;
 
     @FXML
     private AnchorPane id_Dash;
-
-    @FXML
-    private BarChart<?, ?> id_Dash_Chart;
 
     @FXML
     private Label id_Dash_CuyosR;
 
     @FXML
     private Label id_Dash_TotalEmploymeent;
-
-    @FXML
-    private Label id_Dash_VtasDiarias;
-
-    @FXML
-    private AnchorPane main_form;
 
     @FXML
     private AnchorPane adCuyo_Form;
@@ -114,83 +88,34 @@ public class Inicio implements Initializable {
     @FXML
     private Button addHotelBtn;
 
-    @FXML
-    private TextField addTelefono_Veterinario;
 
     @FXML
     private Button addVeterinarioBtn;
 
-    @FXML
-    private Button addVeterinario_AddBtn;
-
-    @FXML
-    private TextField addVeterinario_Cedula;
-
-    @FXML
-    private Button addVeterinario_ClearBtn;
-
-    @FXML
-    private Button addVeterinario_DeleteBtn;
-
-    @FXML
-    private TextField addVeterinario_Direccion;
-
-    @FXML
-    private DatePicker addVeterinario_FechaNac;
 
     @FXML
     private AnchorPane addVeterinario_Form;
 
     @FXML
-    private ComboBox<?> addVeterinario_Genero;
-
-    @FXML
-    private TextField addVeterinario_Nombre;
-
-    @FXML
-    private Button addVeterinario_UpdateBtn;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Cedula;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Direccion;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_FechaN;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Nombre;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Sexo;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Sueldo;
-
-    @FXML
-    private TableColumn<?, ?> addVeterinario_col_Telefono;
-
-    @FXML
-    private TextField addVeterinario_search;
-
-    @FXML
-    private TextField addVeterinario_sueldo;
-
-    @FXML
-    private TableView<?> addVeterinario_tableView;
-
-    @FXML
     private TableColumn<Empleado, Integer> addEmployee_col_Id;
 
     @FXML
-    private Spinner<?> adCuyo_Form_EdadCuy;
+    private TextField adCuyo_Form_EdadCuy;
+
 
     @FXML
     private TextArea adCuyo_Form_Especificaciones;
 
     @FXML
     private TextField adCuyo_Form_NombreCliente;
+    @FXML
+    private TextField adCuyo_Form_CelCliente;
+
+    @FXML
+    private TextField adCuyo_Form_CorreoCli;
+
+    @FXML
+    private TextField adCuyo_Form_DirClie;
 
     @FXML
     private TextField adCuyo_Form_NombreCuy;
@@ -382,7 +307,7 @@ public class Inicio implements Initializable {
             prepare.setString(4, addEmployee_Telefono.getText());
             prepare.setString(5, addEmployee_Direccion_Empleado.getText());
             prepare.setDouble(6, Double.parseDouble(addEmployee_sueldo.getText()));
-            prepare.setString(7, (String) addEmployee_Genero.getSelectionModel().getSelectedItem());
+            prepare.setString(7, addEmployee_Genero.getSelectionModel().getSelectedItem());
             LocalDate fechaNacimiento = addEmployee_FechaNac.getValue();
             java.sql.Date fechaNacimientoSQL = java.sql.Date.valueOf(fechaNacimiento);
             prepare.setDate(8, fechaNacimientoSQL);
@@ -498,10 +423,109 @@ public class Inicio implements Initializable {
         adCuyo_Form_TableViewCuyo.setItems(list);
     }
 
+    public void addCuyoConDueño() throws SQLException {
+        connect = ConnectionBD.getConexion();
+        int idCuyoGenerado=0;
+        String callProcedureSQL = "{CALL InsertarCuyo(?,?,?)}";
+        try {
+            connect.setAutoCommit(false);  // Deshabilitar la confirmación automático
+            PreparedStatement prepare = connect.prepareStatement(callProcedureSQL, Statement.RETURN_GENERATED_KEYS);
+            prepare.setString(1, adCuyo_Form_NombreCuy.getText());
+            prepare.setInt(2, Integer.parseInt(adCuyo_Form_EdadCuy.getText()));
+            prepare.setString(3, adCuyo_Form_Especificaciones.getText());
+            int rowsAffected = prepare.executeUpdate();
+            if (rowsAffected > 0) {
+                connect.commit();  // Confirmar la transacción si hay filas afectadas
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información Operación");
+                alert.setHeaderText(null);
+                alert.setContentText("Agregado Correctamente");
+                alert.showAndWait();
+                try (ResultSet rs = prepare.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idCuyoGenerado=(rs.getInt("IdGenerado"));
+                    }
+                }
+                System.out.println(idCuyoGenerado+"holaaaa");
+                    /*Llamamos el procedure para insertar al dueño*/
+                    String callProcedureSQLDueño = "{CALL InsertarDueñoCuyo(?,?,?,?,?)}";
+                    try {
+                        connect.setAutoCommit(false);  // Deshabilitar la confirmación automático
+                        PreparedStatement prepare2 = connect.prepareStatement(callProcedureSQLDueño);
+                        prepare2.setInt(1, idCuyoGenerado);
+                        prepare2.setString(2, adCuyo_Form_NombreCliente.getText());
+                        prepare2.setString(3, adCuyo_Form_CelCliente.getText());
+                        prepare2.setString(4, adCuyo_Form_CorreoCli.getText());
+                        prepare2.setString(5, adCuyo_Form_DirClie.getText());
+                        int rowsAffected2 = prepare2.executeUpdate();
+                        if (rowsAffected2 > 0) {
+                            connect.commit();  // Confirmar la transacción si hay filas afectadas
+                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                            alert2.setTitle("Información Operación");
+                            alert2.setHeaderText(null);
+                            alert2.setContentText("Cliente Agregado Correctamente");
+                            alert2.showAndWait();
+                        }
+                    } catch (Exception e) {e.printStackTrace();}
+
+                addCuyoConDueñoShowListData();
+            } else {
+                connect.rollback();  // Hacer rollback si no hay filas afectadas
+                System.out.println("No se pudo agregar el empleado.");
+            }
+        } catch(Exception e) {
+            connect.rollback();  // Hacer rollback en caso de error
+            System.out.println(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                connect.setAutoCommit(true);  // Restaurar la confirmación automática
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*-------------------------------------Metodos para las consultas------------------------------------------------*/
+
+    /*Consultas y Gráficas*/
+    public void contarEmpleados(){
+        String callProcedureSQL = "{CALL ContarEmpleados()}";
+        try (Connection connect = ConnectionBD.getConexion();
+             CallableStatement callableStatement = connect.prepareCall(callProcedureSQL);
+             ResultSet rs = callableStatement.executeQuery()) {
+
+            if (rs.next()) {
+                int totalEmpleados = rs.getInt("TotalEmpleados");
+                id_Dash_TotalEmploymeent.setText(String.valueOf(totalEmpleados));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void contarCuyos(){
+        String callProcedureSQL = "{CALL ContarCuyos()}";
+        try (Connection connect = ConnectionBD.getConexion();
+             CallableStatement callableStatement = connect.prepareCall(callProcedureSQL);
+             ResultSet rs = callableStatement.executeQuery()) {
+
+            if (rs.next()) {
+                int totalCuyos = rs.getInt("TotalCuyos");
+                id_Dash_CuyosR.setText(String.valueOf(totalCuyos));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addEmpleadoShowListData();
         addCuyoConDueñoShowListData();
+        contarEmpleados();
+        contarCuyos();
     }
 }
