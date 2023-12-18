@@ -10,7 +10,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -105,11 +104,11 @@
                      <children>
                         <AnchorPane fx:id="home_fomr" prefHeight="557.3731184611215" prefWidth="899.1044520163337" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane fx:id="id_Dash" layoutX="9.0" layoutY="9.0" prefHeight="547.0" prefWidth="880.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css" visible="false">
+                              <AnchorPane fx:id="id_Dash" layoutX="9.0" layoutY="9.0" prefHeight="547.0" prefWidth="880.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                  <children>
                                     <AnchorPane prefHeight="249.0" prefWidth="883.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
-                                          <AnchorPane layoutX="19.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
+                                          <AnchorPane layoutX="52.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
                                              <children>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="22.0" layoutY="122.0" size="60" />
                                                 <Label layoutX="37.0" layoutY="156.0" style="-fx-text-fill: white;" text="Empleados Totales" textAlignment="CENTER" textFill="WHITE">
@@ -123,7 +122,7 @@
                                                    </font>
                                                 </Label>
                                              </children></AnchorPane>
-                                          <AnchorPane layoutX="311.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
+                                          <AnchorPane layoutX="329.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
                                              <children>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="24.0" layoutY="122.0" size="60" />
                                                 <Label layoutX="56.0" layoutY="156.0" style="-fx-text-fill: white;" text="Ventas Totales" textAlignment="CENTER" textFill="WHITE">
@@ -137,7 +136,7 @@
                                                    </font>
                                                 </Label>
                                              </children></AnchorPane>
-                                          <AnchorPane layoutX="613.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
+                                          <AnchorPane layoutX="607.0" layoutY="24.0" prefHeight="201.0" prefWidth="250.0" styleClass="card" stylesheets="@../../../dashboardStyle.css">
                                              <children>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="USER_PLUS" layoutX="23.0" layoutY="122.0" size="60" />
                                                 <Label layoutX="39.0" layoutY="156.0" style="-fx-text-fill: white;" text="Cuyos Registrados" textAlignment="CENTER" textFill="WHITE">
@@ -233,7 +232,7 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="adCuyo_Form" layoutX="8.0" layoutY="10.0" prefHeight="553.0" prefWidth="881.0">
+                              <AnchorPane fx:id="adCuyo_Form" layoutX="8.0" layoutY="10.0" prefHeight="553.0" prefWidth="881.0" visible="false">
                                  <children>
                                     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="532.0" prefWidth="411.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
@@ -251,26 +250,16 @@
                                           <Label layoutX="10.0" layoutY="429.0" text="Direccion" />
                                           <TextField fx:id="adCuyo_Form_NombreCuy" layoutX="223.0" layoutY="80.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextArea fx:id="adCuyo_Form_Especificaciones" layoutX="220.0" layoutY="157.0" prefHeight="113.0" prefWidth="158.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <Spinner fx:id="adCuyo_Form_EdadCuy" layoutX="222.0" layoutY="114.0" editable="true" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <Line endX="287.81341552734375" layoutX="111.0" layoutY="296.0" startX="-100.0" />
                                           <TextField fx:id="adCuyo_Form_NombreCliente" layoutX="222.0" layoutY="306.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextField fx:id="adCuyo_Form_CelCliente" layoutX="223.0" layoutY="347.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextField fx:id="adCuyo_Form_CorreoCli" layoutX="222.0" layoutY="385.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <TextField fx:id="adCuyo_Form_DirClie" layoutX="223.0" layoutY="425.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <Button fx:id="adCuyo_FormBtnAdd" layoutX="9.0" layoutY="478.0" mnemonicParsing="false" style="-fx-background-radius: 50;" text="Agregar Registro">
+                                          <Button fx:id="adCuyo_FormBtnAdd" layoutX="148.0" layoutY="474.0" mnemonicParsing="false" onAction="#addCuyoConDueño" style="-fx-background-radius: 50;" text="Agregar Registro">
                                              <font>
                                                 <Font name="System Bold" size="12.179104804992676" />
                                              </font></Button>
-                                          <Button fx:id="adCuyo_FormBtnUpdate" layoutX="144.0" layoutY="478.0" mnemonicParsing="false" style="-fx-background-radius: 50;" text="Editar Registro">
-                                             <font>
-                                                <Font name="System Bold" size="12.179104804992676" />
-                                             </font>
-                                          </Button>
-                                          <Button fx:id="adCuyo_FormBtnDelete" layoutX="278.0" layoutY="478.0" mnemonicParsing="false" style="-fx-background-radius: 50;" text="Borrar Registro">
-                                             <font>
-                                                <Font name="System Bold" size="12.179104804992676" />
-                                             </font>
-                                          </Button>
+                                          <TextField fx:id="adCuyo_Form_EdadCuy" layoutX="221.0" layoutY="121.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="425.0" layoutY="14.0" prefHeight="531.0" prefWidth="441.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
@@ -288,6 +277,9 @@
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="addVeterinario_Form" layoutX="10.0" layoutY="10.0" prefHeight="570.9850583721258" prefWidth="899.1044520163337" visible="false">
+                                 <fx:include source="./VeterinarioPag.fxml"/>
+                              </AnchorPane>
+                              <AnchorPane fx:id="addAlojamiento_Form" layoutX="20.0" layoutY="20.0" prefHeight="570.9850583721258" prefWidth="899.1044520163337" visible="false">
                                  <children>
                                     <AnchorPane layoutX="12.0" layoutY="14.0" prefHeight="543.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
@@ -306,9 +298,9 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="addVeterinario_Nombre" layoutX="204.0" layoutY="326.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <TextField fx:id="addTelefono_Veterinario" layoutX="204.0" layoutY="376.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <DatePicker fx:id="addVeterinario_FechaNac" layoutX="617.0" layoutY="274.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addVeterinario_Nombre1" layoutX="204.0" layoutY="326.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addTelefono_Veterinario1" layoutX="204.0" layoutY="376.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <DatePicker fx:id="addVeterinario_FechaNac1" layoutX="617.0" layoutY="274.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css" />
                                           <Label layoutX="430.0" layoutY="274.0" text="Fecha Nacimiento">
                                              <font>
                                                 <Font size="18.0" />
@@ -319,12 +311,12 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="addVeterinario_sueldo" layoutX="617.0" layoutY="325.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
-                                          <Button fx:id="addVeterinario_AddBtn" layoutX="482.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #19ee19;" text="Agregar" />
-                                          <Button fx:id="addVeterinario_DeleteBtn" layoutX="556.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
-                                          <Button fx:id="addVeterinario_UpdateBtn" layoutX="630.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #0077ff;" text="Editar" />
-                                          <Button fx:id="addVeterinario_ClearBtn" layoutX="693.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #faaf2b;" text="Limpiar" />
-                                          <ComboBox fx:id="addVeterinario_Genero" layoutX="207.0" layoutY="430.0" prefWidth="150.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css">
+                                          <TextField fx:id="addVeterinario_sueldo1" layoutX="617.0" layoutY="325.0" prefHeight="27.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <Button fx:id="addVeterinario_AddBtn1" layoutX="482.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #19ee19;" text="Agregar" />
+                                          <Button fx:id="addVeterinario_DeleteBtn1" layoutX="556.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: rgba(255,0,0,0.86);" text="Eliminar" />
+                                          <Button fx:id="addVeterinario_UpdateBtn1" layoutX="630.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #0077ff;" text="Editar" />
+                                          <Button fx:id="addVeterinario_ClearBtn1" layoutX="693.0" layoutY="429.0" mnemonicParsing="false" style="-fx-background-color: #faaf2b;" text="Limpiar" />
+                                          <ComboBox fx:id="addVeterinario_Genero1" layoutX="207.0" layoutY="430.0" prefWidth="150.0" styleClass="choice-box" stylesheets="@../../../dashboardStyle.css">
                                              <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                    <String fx:value="Femenino" />
@@ -337,29 +329,29 @@
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="addVeterinario_Direccion" layoutX="615.0" layoutY="378.0" prefHeight="29.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addVeterinario_Direccion1" layoutX="615.0" layoutY="378.0" prefHeight="29.0" prefWidth="182.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                           <Label layoutX="25.0" layoutY="275.0" text="Cédula">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="addVeterinario_Cedula" layoutX="205.0" layoutY="274.0" prefHeight="29.0" prefWidth="155.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addVeterinario_Cedula1" layoutX="205.0" layoutY="274.0" prefHeight="29.0" prefWidth="155.0" styleClass="textfield" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="22.0" layoutY="24.0" prefHeight="250.0" prefWidth="876.0" styleClass="data-bg" stylesheets="@../../../dashboardStyle.css">
                                        <children>
-                                          <TableView fx:id="addVeterinario_tableView" layoutX="8.0" layoutY="40.0" onMouseClicked="#addEmployeeSelect" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
+                                          <TableView fx:id="addVeterinario_tableView1" layoutX="8.0" layoutY="40.0" onMouseClicked="#addEmployeeSelect" prefHeight="201.0" prefWidth="860.0" stylesheets="@../../../dashboardStyle.css">
                                              <columns>
-                                                <TableColumn fx:id="addVeterinario_col_Nombre" prefWidth="151.16413497924805" text="Nombre" />
-                                                <TableColumn fx:id="addVeterinario_col_Sueldo" prefWidth="117.49256896972656" text="Sueldo" />
-                                                <TableColumn fx:id="addVeterinario_col_Telefono" prefWidth="123.94033813476562" text="Télefono" />
-                                                <TableColumn fx:id="addVeterinario_col_FechaN" prefWidth="128.23876953125" text="Fecha de Nacimiento" />
-                                                <TableColumn fx:id="addVeterinario_col_Sexo" prefWidth="44.41790771484375" text="Sexo" />
-                                                <TableColumn fx:id="addVeterinario_col_Cedula" prefWidth="128.9552001953125" text="Cédula" />
-                                                <TableColumn fx:id="addVeterinario_col_Direccion" prefWidth="539.4625854492188" text="Dirección" />
+                                                <TableColumn fx:id="addVeterinario_col_Nombre1" prefWidth="151.16413497924805" text="Nombre" />
+                                                <TableColumn fx:id="addVeterinario_col_Sueldo1" prefWidth="117.49256896972656" text="Sueldo" />
+                                                <TableColumn fx:id="addVeterinario_col_Telefono1" prefWidth="123.94033813476562" text="Télefono" />
+                                                <TableColumn fx:id="addVeterinario_col_FechaN1" prefWidth="128.23876953125" text="Fecha de Nacimiento" />
+                                                <TableColumn fx:id="addVeterinario_col_Sexo1" prefWidth="44.41790771484375" text="Sexo" />
+                                                <TableColumn fx:id="addVeterinario_col_Cedula1" prefWidth="128.9552001953125" text="Cédula" />
+                                                <TableColumn fx:id="addVeterinario_col_Direccion1" prefWidth="539.4625854492188" text="Dirección" />
                                              </columns>
                                           </TableView>
-                                          <TextField fx:id="addVeterinario_search" layoutX="14.0" layoutY="1.0" promptText="Buscar" styleClass="search" stylesheets="@../../../dashboardStyle.css" />
+                                          <TextField fx:id="addVeterinario_search1" layoutX="14.0" layoutY="1.0" promptText="Buscar" styleClass="search" stylesheets="@../../../dashboardStyle.css" />
                                        </children>
                                     </AnchorPane>
                                  </children>
