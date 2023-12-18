@@ -1,24 +1,27 @@
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Veterinario {
+    private int id_veterinario;
     private String nombre;
     private String telefono;
     private String direccion;
     private float sueldo;
-    private char sexo;
-    private String cedula;
+    private String  sexo;
+    private String cedula_profesional;
     private Date fecha_nacimiento;
 
 
-    public Veterinario(String nombre, String telefono, String direccion, float sueldo, char sexo, String cedula, Date fecha_nacimiento) {
+    public Veterinario(int id_veterinario, String nombre, String telefono, String direccion, float sueldo, String sexo, String cedula_profesional, Date fecha_nacimiento) {
+        this.id_veterinario=id_veterinario;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
         this.sueldo = sueldo;
         this.sexo = sexo;
-        this.cedula = cedula;
+        this.cedula_profesional = cedula_profesional;
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
@@ -38,15 +41,17 @@ public class Veterinario {
         return sueldo;
     }
 
-    public char getSexo() {
+    public String  getSexo() {
         return sexo;
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getCedula_profesional() {return cedula_profesional;}
+
+    public int getId_veterinario() {
+        return id_veterinario;
+    }
+    public LocalDate getFecha_nacimiento() {
+        return ((java.sql.Date) fecha_nacimiento).toLocalDate();
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
 }
