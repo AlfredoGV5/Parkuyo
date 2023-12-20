@@ -22,6 +22,8 @@ public class Inicio implements Initializable {
     private int id_empleado;
 
     @FXML
+    private AnchorPane addAlojamiento_Form;
+    @FXML
     private DatePicker addEmployee_FechaNac;
 
     @FXML
@@ -152,26 +154,31 @@ public class Inicio implements Initializable {
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(false);
                 addVeterinario_Form.setVisible(false);
+                addAlojamiento_Form.setVisible(false);
             } else if (clickedButton == employee_btn) {
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(true);
                 adCuyo_Form.setVisible(false);
                 addVeterinario_Form.setVisible(false);
+                addAlojamiento_Form.setVisible(false);
             } else if (clickedButton == addCuyo_btn) {
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(true);
                 addVeterinario_Form.setVisible(false);
+                addAlojamiento_Form.setVisible(false);
             }else if(clickedButton==addVeterinarioBtn){
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(false);
                 addVeterinario_Form.setVisible(true);
+                addAlojamiento_Form.setVisible(false);
             }else if(clickedButton==addHotelBtn){
                 id_Dash.setVisible(false);
                 addEmployee_form.setVisible(false);
                 adCuyo_Form.setVisible(false);
                 addVeterinario_Form.setVisible(false);
+                addAlojamiento_Form.setVisible(true);
             }
         }
     }
