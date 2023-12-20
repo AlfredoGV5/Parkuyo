@@ -25,6 +25,11 @@ public class Veterinario {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public Veterinario(int id_veterinario, String nombre) {
+        this.id_veterinario = id_veterinario;
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -52,6 +57,10 @@ public class Veterinario {
     }
     public LocalDate getFecha_nacimiento() {
         return ((java.sql.Date) fecha_nacimiento).toLocalDate();
+    }
+
+    public String toString() {
+        return nombre;
     }
 
 }
