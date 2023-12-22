@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="428.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.parkuyo.ConsultasVeterinarias">
+   <children>
+      <AnchorPane prefHeight="428.0" prefWidth="415.0">
+         <children>
+            <AnchorPane layoutX="27.0" layoutY="103.0" prefHeight="227.0" prefWidth="367.0">
+               <children>
+                  <Label layoutX="30.0" layoutY="109.0" text="Tratamiento">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="Atencion_Diagnostico" editable="false" layoutX="158.0" layoutY="77.0" prefHeight="27.0" prefWidth="179.0" />
+                  <Label layoutX="31.0" layoutY="77.0" text="Diagnostico">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="34.0" layoutY="49.0" text="Veterinario">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="Atencion_Tratamiento" layoutX="158.0" layoutY="109.0" prefHeight="80.0" prefWidth="179.0" />
+                  <ComboBox fx:id="Atencion_Veterinario" layoutX="158.0" layoutY="49.0" prefHeight="27.0" prefWidth="179.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="14.0" prefHeight="27.0" prefWidth="162.0" text="Datos Médicos">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="AtencionVAgregar_btn" layoutX="132.0" layoutY="209.0" mnemonicParsing="false" onAction="#agregarAtencionV_btn" prefHeight="35.0" prefWidth="117.0" text="Agregar Atención" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <TableView layoutX="402.0" layoutY="114.0" prefHeight="201.0" prefWidth="355.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
