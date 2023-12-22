@@ -405,6 +405,7 @@ public class Inicio implements Initializable {
                         resultado.getString("especificaciones")
                 );
                 DueñoCuyo dueñoCuyo = new DueñoCuyo(
+                        resultado.getInt("id_cliente"),
                         resultado.getString("nombre_cliente"),
                         resultado.getString("celular_cliente"),
                         resultado.getString("correo_cliente"),

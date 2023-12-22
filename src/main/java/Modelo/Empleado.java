@@ -25,6 +25,10 @@ public class Empleado {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
+    public Empleado(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     public String getNombre() {
         return nombre;
@@ -50,4 +54,9 @@ public class Empleado {
     }
 
     public LocalDate getFecha_nacimiento() {return fecha_nacimiento;}
+
+    public String toString() {
+        return nombre;
+    }
+
 }

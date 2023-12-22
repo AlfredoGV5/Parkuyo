@@ -14,6 +14,8 @@ public class CuyoConDueño {
         return cuyo.getNombre_Cuyo();
     }
 
+    public int getIdCliente(){return dueñoCuyo.getId_cliente();}
+
     public String getEspecificacionesCuyo() {
         return cuyo.getEspecificaciones_Cuyo();
     }
