@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="428.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.poo.parkuyo.ConsultasVeterinarias">
+<AnchorPane prefHeight="428.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ConsultasVeterinarias">
    <children>
       <AnchorPane prefHeight="428.0" prefWidth="415.0">
          <children>
@@ -22,7 +21,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="Atencion_Diagnostico" editable="false" layoutX="158.0" layoutY="77.0" prefHeight="27.0" prefWidth="179.0" />
+                  <TextField fx:id="Atencion_Diagnostico" layoutX="158.0" layoutY="77.0" prefHeight="27.0" prefWidth="179.0" />
                   <Label layoutX="31.0" layoutY="77.0" text="Diagnostico">
                      <font>
                         <Font size="18.0" />

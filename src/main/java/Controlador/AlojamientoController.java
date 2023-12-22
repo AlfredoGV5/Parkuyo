@@ -16,14 +16,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.temporal.ChronoUnit;
 
 
 public class AlojamientoController {
+    int idDetalleAlojamiento;
     private Connection connect;
 
     @FXML
@@ -36,8 +34,6 @@ public class AlojamientoController {
     @FXML
     private TextArea Atencion_Tratamiento;
 
-    @FXML
-    private ComboBox<Veterinario> Atencion_Veterinario;
     @FXML
     private DatePicker Fecha_EntradaAlojamiento;
 
@@ -57,12 +53,9 @@ public class AlojamientoController {
 
 
     int id_clienteSeleccionado=0;
-    int id_veterinarioSeleccionado=0;
-
     @FXML
     public void initialize() throws SQLException {
         cargarDatos();
-        cargarVeterinarios();
         cargarEmpleados();
     }
     private void cargarDatos() throws SQLException {
@@ -135,20 +128,6 @@ public class AlojamientoController {
         return listData;
     }
 
-    public void cargarVeterinarios() {
-        Connection con = ConnectionBD.getConexion();
-        String query = "SELECT id_veterinario, nombre FROM Veterinarios";
-        try (PreparedStatement pst = con.prepareStatement(query)) {
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Veterinario veterinario = new Veterinario(rs.getInt("id_veterinario"), rs.getString("nombre"));
-                Atencion_Veterinario.getItems().add(veterinario);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void cargarEmpleados() {
         Connection con = ConnectionBD.getConexion();
         String query = "SELECT id_empleado, nombre FROM empleados";
@@ -170,7 +149,35 @@ public class AlojamientoController {
         if (cuyoSeleccionado != null) {
             Cuyo_Descripcion.setText(cuyoSeleccionado.getNombreCuyo());
             id_clienteSeleccionado=cuyoSeleccionado.getIdCliente();
+            idDetalleAlojamiento= obtenerIdDetalleAlojamiento(id_clienteSeleccionado);
+            System.out.println("SIII, EL ID ES"+idDetalleAlojamiento);
+
         }
+    }
+
+    private int obtenerIdDetalleAlojamiento(int idCliente) {
+        int idDetalleAlojamiento = -1; // Valor predeterminado si no se encuentra
+
+        // Aquí realiza la consulta SQL para obtener el id_detalle_Alojamiento
+        String sql = "SELECT da.id_Detalle_Alojamiento " +
+                "FROM detalle_Alojamiento da " +
+                "INNER JOIN Alojamiento a ON da.id_Alojamiento = a.id_Alojamiento " +
+                "INNER JOIN cliente_DueñoCuyo cd ON a.id_cliente = cd.id_cliente " +
+                "WHERE cd.id_cliente = ?";
+
+        try (Connection con = ConnectionBD.getConexion();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, idCliente);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idDetalleAlojamiento = rs.getInt("id_Detalle_Alojamiento");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idDetalleAlojamiento;
     }
 
     @FXML
@@ -205,14 +212,19 @@ public class AlojamientoController {
                 String sqlDetalle = "INSERT INTO detalle_Alojamiento(id_ALojamiento,id_empleado,no_cuarto) VALUES (?,?,?)";
                 try {
                     connect.setAutoCommit(false);  // Deshabilitar la confirmación automático
-                    PreparedStatement prepare2 = connect.prepareStatement(sqlDetalle);
+                    PreparedStatement prepare2 = connect.prepareStatement(sqlDetalle, Statement.RETURN_GENERATED_KEYS);
                     prepare2.setInt(1, id_AlojamientoGenerado);
                     Empleado empleadoSeleccionado = Empleado_Alojamiento.getSelectionModel().getSelectedItem();
-                    System.out.println("El empleado fue "+empleadoSeleccionado.getId());
                     prepare2.setInt(2, empleadoSeleccionado.getId());
                     prepare2.setInt(3, Integer.parseInt(Cuarto_Alojamiento.getText()));
                     int rowsAffected2 = prepare2.executeUpdate();
                     if (rowsAffected2 > 0) {
+                        // Obtener las claves generadas automáticamente
+                        ResultSet generatedKeys = prepare2.getGeneratedKeys();
+                        if (generatedKeys.next()) {
+                            idDetalleAlojamiento = generatedKeys.getInt(1); // Suponiendo que la columna se llama "id_detalle_Alojamiento"
+                            System.out.println("Id_detalle_Alojamiento insertado: " + idDetalleAlojamiento);
+                        }
                         connect.commit();  // Confirmar la transacción si hay filas afectadas
                     }
                 } catch (Exception e) {e.printStackTrace();}
@@ -232,4 +244,20 @@ public class AlojamientoController {
             }
         }
     }
+
+    @FXML
+    void abrirConsultas_btn() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/poo/parkuyo/ConsultasVeterinarias.fxml"));
+        Parent root = loader.load();
+        ConsultasVeterinarias consultasController = loader.getController();
+        consultasController.setIdDetalleAlojamiento(idDetalleAlojamiento);
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+
 }
